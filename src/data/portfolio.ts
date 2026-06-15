@@ -9,7 +9,7 @@ export const portfolio: PortfolioData = {
     siteTitle: "Sanjay Sathyarapu — Full Stack Software Engineer",
     siteDescription:
       "Full Stack Software Engineer with 4+ years building production systems at Goldman Sachs, Tech Mahindra, and Hexaware. Spring Boot, AWS, Kubernetes, and LangChain RAG pipelines.",
-    siteUrl: "https://your-domain.vercel.app",
+    siteUrl: "https://portfolio-sanjaysathyarapu.vercel.app",
     ogImage: "/og-image.svg",
   },
 
