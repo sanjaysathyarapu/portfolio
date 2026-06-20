@@ -207,11 +207,10 @@ export const portfolio: PortfolioData = {
   ],
 
   contact: {
-    email: "sanjay.sathyarapu@gmail.com",
+    email: "sanjay@jobsmails.com",
     phone: "+1 (669) 588-7976",
-    heading: "Let's work together",
-    subheading:
-      "I'm always interested in hearing about new projects and opportunities. Reach out — I'll get back to you.",
+    heading: "Always happy to connect",
+    subheading: "Drop me a line - I reply quickly",
     social: [
       { label: "GitHub", href: "https://github.com/sanjaysathyarapu" },
       {
