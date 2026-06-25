@@ -24,9 +24,15 @@ export const portfolio: PortfolioData = {
 
   hero: {
     name: "Sanjay Sathyarapu",
-    title: "Full Stack Software Engineer",
+    title: "Full Stack Developer",
+    roles: [
+      "Full Stack Developer",
+      "Software Engineer",
+      "AI Engineer",
+      "Backend Engineer",
+    ],
     pitch:
-      "I build and ship production systems with Spring Boot, AWS, and Kubernetes — from microservices handling 150K+ daily transactions to LangChain RAG pipelines over market data. I care about clean code, system performance, and building software people want to use.",
+      "I build software that works in the real world — backend systems, cloud infrastructure, and lately AI that helps people find what they need faster. I care about writing clear code and shipping things that are actually useful.",
     availability: "Open to new opportunities",
     cvPath: "/Sanjay-Sathyarapu.pdf",
     social: [

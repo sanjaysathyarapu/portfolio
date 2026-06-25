@@ -75,18 +75,27 @@
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas;
   }
 
-  /* Fixed header — transparent at top, opaque once scrolled */
+  /* Fixed header — transparent at top, blends on scroll, auto-hides past hero */
   .site-header {
+    transform: translateY(0);
+    opacity: 1;
     transition:
+      transform 300ms ease,
+      opacity 300ms ease,
       background-color 0.25s ease,
-      border-color 0.25s ease,
       backdrop-filter 0.25s ease;
   }
 
+  .site-header[data-visible="false"] {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
   .site-header[data-scrolled="true"] {
-    background-color: color-mix(in srgb, var(--color-canvas) 94%, transparent);
-    border-bottom: 1px solid color-mix(in srgb, var(--color-border) 35%, transparent);
-    backdrop-filter: blur(10px);
+    background-color: color-mix(in srgb, var(--color-canvas) 88%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 
   .main-offset {
@@ -134,6 +143,18 @@
   html[data-theme-transitioning] .widget-circle {
     transition-duration: 350ms;
     transition-timing-function: ease-in-out;
+  }
+
+  .role-cycle-text {
+    transition:
+      opacity 400ms ease-out,
+      transform 400ms ease-out;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .role-cycle-text {
+      transition: none;
+    }
   }
 
   /* Sky decor — sits below nav, sunset / moonrise on theme toggle */

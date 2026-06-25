@@ -1,6 +1,7 @@
 import type { ComponentType } from "react";
 import { portfolio } from "@/data/portfolio";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
+import { RoleCard } from "@/components/RoleCard";
 import { WidgetCircle } from "@/components/WidgetCircle";
 import { GitHubIcon, LinkedInIcon } from "@/components/icons";
 
@@ -19,14 +20,12 @@ export function Hero() {
       aria-labelledby="hero-heading"
     >
       <RevealOnScroll>
-        <p className="mb-4 text-sm font-medium uppercase tracking-widest text-accent">
-          {hero.title}
-        </p>
+        <RoleCard roles={hero.roles} stagger={0} />
         <h1
           id="hero-heading"
           className="font-display text-5xl font-semibold leading-tight tracking-tight text-ink sm:text-6xl lg:text-7xl"
         >
-          {hero.name}
+          {hero.name.split(" ")[0]}
         </h1>
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">
           {hero.pitch}

@@ -55,6 +55,7 @@ export interface PortfolioData {
   hero: {
     name: string;
     title: string;
+    roles: string[];
     pitch: string;
     availability: string;
     cvPath: string;

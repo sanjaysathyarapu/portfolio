@@ -7,6 +7,9 @@ type WidgetCircleProps = {
   href?: string;
   onClick?: () => void;
   "aria-label"?: string;
+  "aria-live"?: "polite" | "assertive" | "off";
+  "aria-atomic"?: boolean | "true" | "false";
+  role?: string;
   target?: string;
   rel?: string;
   download?: boolean | string;

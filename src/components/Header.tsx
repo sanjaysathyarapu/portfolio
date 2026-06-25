@@ -5,6 +5,7 @@ import { portfolio } from "@/data/portfolio";
 import { CloseIcon, MenuIcon } from "@/components/icons";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { WidgetCircle } from "@/components/WidgetCircle";
+import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
 import { useScrolled } from "@/hooks/useScrolled";
 
 const SECTION_IDS = portfolio.nav.map((link) => link.href.replace("#", ""));
@@ -14,6 +15,7 @@ export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const scrolled = useScrolled(24);
+  const navbarVisible = useNavbarVisibility();
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
@@ -55,6 +57,12 @@ export function Header() {
     }
   }, [menuOpen]);
 
+  useEffect(() => {
+    if (!navbarVisible) {
+      setMenuOpen(false);
+    }
+  }, [navbarVisible]);
+
   const closeMenu = useCallback(() => setMenuOpen(false), []);
 
   const navLinkClass = (href: string) => {
@@ -71,6 +79,7 @@ export function Header() {
     <header
       className="site-header fixed inset-x-0 top-0 z-50 bg-transparent"
       data-scrolled={showSolidHeader}
+      data-visible={navbarVisible}
     >
       <div className="mx-auto max-w-6xl px-5 py-4 sm:px-8 sm:py-5">
         <div className="flex items-center justify-between gap-6">
@@ -78,7 +87,7 @@ export function Header() {
             href="#hero"
             className="focus-ring shrink-0 rounded font-display text-lg font-semibold tracking-tight text-ink"
           >
-            {portfolio.hero.name.split(" ")[0]}
+            {portfolio.hero.name}
           </a>
 
           <div className="flex items-center gap-3 lg:gap-4">
