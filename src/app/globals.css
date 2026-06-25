@@ -3,6 +3,33 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-canvas: #f8f7f4;
+    --color-surface: #ffffff;
+    --color-ink: #1a1a1a;
+    --color-muted: #5c5c5c;
+    --color-border: #e8e6e1;
+    --color-accent: #2d5a4a;
+    --color-accent-light: #3d7a64;
+    --color-accent-dark: #1e3d32;
+    /* Layout — single source of truth for header / hero spacing */
+    --site-header-height: 5rem;
+    --hero-content-offset: clamp(2.5rem, 12vh, 6rem);
+    color-scheme: light;
+  }
+
+  .dark {
+    --color-canvas: #121210;
+    --color-surface: #1c1c1a;
+    --color-ink: #f0efec;
+    --color-muted: #9a9a94;
+    --color-border: #2e2e2a;
+    --color-accent: #5cb896;
+    --color-accent-light: #6ecca8;
+    --color-accent-dark: #4a9b7f;
+    color-scheme: dark;
+  }
+
   html {
     scroll-behavior: smooth;
   }
@@ -23,16 +50,140 @@
 
   body {
     @apply bg-canvas font-sans text-ink antialiased;
+    transition:
+      background-color 200ms ease,
+      color 200ms ease;
+  }
+
+  /* Smooth token transitions when toggling theme */
+  *,
+  *::before,
+  *::after {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-duration: 200ms;
+    transition-timing-function: ease;
   }
 
   /* Offset anchor targets below sticky header */
   section[id] {
-    scroll-margin-top: 5rem;
+    scroll-margin-top: var(--site-header-height);
   }
 }
 
 @layer utilities {
   .focus-ring {
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas;
+  }
+
+  /* Fixed header — transparent at top, opaque once scrolled */
+  .site-header {
+    transition:
+      background-color 0.25s ease,
+      border-color 0.25s ease,
+      backdrop-filter 0.25s ease;
+  }
+
+  .site-header[data-scrolled="true"] {
+    background-color: color-mix(in srgb, var(--color-canvas) 94%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-border) 35%, transparent);
+    backdrop-filter: blur(10px);
+  }
+
+  .main-offset {
+    padding-top: var(--site-header-height);
+  }
+
+  .hero-section {
+    display: flex;
+    min-height: calc(100vh - var(--site-header-height));
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: var(--hero-content-offset);
+    padding-bottom: 5rem;
+  }
+
+  @media (min-width: 640px) {
+    .hero-section {
+      padding-bottom: 7rem;
+    }
+  }
+
+  .sky-celestial-layer {
+    top: var(--site-header-height);
+  }
+
+  .widget-circle {
+    @apply rounded-full border border-border bg-surface;
+    background-color: color-mix(in srgb, var(--color-surface) 70%, transparent);
+    transition:
+      background-color 200ms ease,
+      border-color 200ms ease,
+      color 200ms ease;
+  }
+
+  .widget-circle-nav {
+    background-color: transparent;
+    border-color: transparent;
+  }
+
+  .widget-circle-nav:hover {
+    background-color: color-mix(in srgb, var(--color-surface) 30%, transparent);
+    border-color: color-mix(in srgb, var(--color-border) 50%, transparent);
+  }
+
+  html[data-theme-transitioning] .widget-circle {
+    transition-duration: 350ms;
+    transition-timing-function: ease-in-out;
+  }
+
+  /* Sky decor — sits below nav, sunset / moonrise on theme toggle */
+  .sky-decor {
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  }
+
+  /* Sky backdrops — crossfade only, no movement */
+  .sky-decor-day,
+  .sky-decor-night {
+    transition: opacity 0.9s ease-in-out;
+  }
+
+  .sky-decor-night {
+    opacity: 0;
+  }
+
+  .dark .sky-decor-day {
+    opacity: 0;
+  }
+
+  .dark .sky-decor-night {
+    opacity: 1;
+  }
+
+  /* Sun & moon — sunset / moonrise movement only */
+  .sky-celestial {
+    transition:
+      opacity 0.9s ease-in-out,
+      transform 0.9s ease-in-out;
+  }
+
+  .sky-sun {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .dark .sky-sun {
+    opacity: 0;
+    transform: translateY(28%);
+  }
+
+  .sky-moon {
+    opacity: 0;
+    transform: translateY(-22%);
+  }
+
+  .dark .sky-moon {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

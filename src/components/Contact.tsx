@@ -1,6 +1,7 @@
 import type { ComponentType } from "react";
 import { portfolio } from "@/data/portfolio";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
+import { WidgetCircle } from "@/components/WidgetCircle";
 import { GitHubIcon, LinkedInIcon } from "@/components/icons";
 
 const socialIcons: Record<string, ComponentType<{ className?: string }>> = {
@@ -47,20 +48,23 @@ export function Contact() {
             </a>
           </div>
 
-          <div className="mt-8 flex items-center justify-center gap-4">
-            {contact.social.map((link) => {
+          <div className="mt-8 flex items-center justify-center gap-3">
+            {contact.social.map((link, index) => {
               const Icon = socialIcons[link.label];
+              const socialStagger =
+                portfolio.nav.length + portfolio.hero.social.length + index;
               return (
-                <a
+                <WidgetCircle
                   key={link.label}
                   href={link.href}
+                  stagger={socialStagger}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="focus-ring rounded p-2 text-muted transition-colors hover:text-accent"
                   aria-label={`${link.label} (opens in new tab)`}
+                  className="h-11 w-11 text-muted transition-colors hover:border-accent/50 hover:text-accent"
                 >
                   {Icon && <Icon className="h-6 w-6" />}
-                </a>
+                </WidgetCircle>
               );
             })}
           </div>

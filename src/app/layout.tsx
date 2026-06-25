@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Fraunces, IBM_Plex_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { portfolio } from "@/data/portfolio";
+import { SkyDecor } from "@/components/SkyDecor";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -18,6 +20,26 @@ const ibmPlexSans = IBM_Plex_Sans({
 });
 
 const { seo } = portfolio;
+
+const themeInitScript = `
+(function () {
+  try {
+    var source = localStorage.getItem("theme-source");
+    if (source !== "manual" && localStorage.getItem("theme")) {
+      source = "manual";
+    }
+    var isDark = false;
+    if (source === "manual") {
+      isDark = localStorage.getItem("theme") === "dark";
+    } else {
+      var h = new Date().getHours();
+      isDark = h >= 18 || h < 6;
+      document.documentElement.setAttribute("data-theme-auto", isDark ? "dark" : "light");
+    }
+    if (isDark) document.documentElement.classList.add("dark");
+  } catch (e) {}
+})();
+`;
 
 export const metadata: Metadata = {
   title: seo.siteTitle,
@@ -56,16 +78,23 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${fraunces.variable} ${ibmPlexSans.variable}`}
+      suppressHydrationWarning
     >
-      <body>
-        {/* Skip link for keyboard users */}
-        <a
-          href="#main-content"
-          className="focus-ring sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-white"
-        >
-          Skip to main content
-        </a>
-        {children}
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body className="overflow-x-hidden">
+        <SkyDecor />
+        <ThemeProvider>
+          {/* Skip link for keyboard users */}
+          <a
+            href="#main-content"
+            className="focus-ring sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-white"
+          >
+            Skip to main content
+          </a>
+          {children}
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>

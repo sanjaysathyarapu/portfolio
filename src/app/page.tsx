@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main id="main-content" className="mx-auto max-w-6xl px-5 sm:px-8">
+      <main id="main-content" className="main-offset relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
         <Hero />
         <About />
         <Projects />

@@ -1,6 +1,7 @@
 import type { ComponentType } from "react";
 import { portfolio } from "@/data/portfolio";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
+import { WidgetCircle } from "@/components/WidgetCircle";
 import { GitHubIcon, LinkedInIcon } from "@/components/icons";
 
 const socialIcons: Record<string, ComponentType<{ className?: string }>> = {
@@ -14,7 +15,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="flex min-h-[calc(100vh-4rem)] flex-col justify-center py-20 sm:py-28"
+      className="hero-section"
       aria-labelledby="hero-heading"
     >
       <RevealOnScroll>
@@ -47,20 +48,21 @@ export function Hero() {
           </a>
         </div>
 
-        <div className="mt-8 flex items-center gap-4">
-          {hero.social.map((link) => {
+        <div className="mt-8 flex items-center gap-3">
+          {hero.social.map((link, index) => {
             const Icon = socialIcons[link.label];
             return (
-              <a
+              <WidgetCircle
                 key={link.label}
                 href={link.href}
+                stagger={portfolio.nav.length + index}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="focus-ring rounded p-2 text-muted transition-colors hover:text-accent"
                 aria-label={`${link.label} (opens in new tab)`}
+                className="h-10 w-10 text-muted transition-colors hover:border-accent/50 hover:text-accent"
               >
                 {Icon && <Icon className="h-5 w-5" />}
-              </a>
+              </WidgetCircle>
             );
           })}
         </div>
