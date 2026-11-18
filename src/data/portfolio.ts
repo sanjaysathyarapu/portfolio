@@ -70,11 +70,20 @@ export const portfolio: PortfolioData = {
       codeUrl: "https://github.com/RavirajWadnerkar/ClearCall",
     },
     {
-      title: "LieSense Checker",
+      title: "Callwise",
       description:
-        "Web application for license validation and verification workflows. Built with JavaScript to streamline compliance checks and provide a clear interface for reviewing license status and related metadata.",
-      techStack: ["JavaScript", "HTML", "CSS"],
-      codeUrl: "https://github.com/sanjaysathyarapu/LieSenseChecker",
+        "Multi-tenant AI support assistant trained on each business's own documents. Uses RAG over Postgres with pgvector to ground answers, streams chat responses in real time, and lets customers talk to it by voice in the browser or by calling a Twilio phone line.",
+      techStack: [
+        "Next.js",
+        "TypeScript",
+        "PostgreSQL",
+        "pgvector",
+        "Auth.js",
+        "Vercel AI SDK",
+        "Twilio",
+      ],
+      liveUrl: "https://callwise-three.vercel.app/demo",
+      codeUrl: "https://github.com/sanjaysathyarapu/callwise",
     },
     {
       title: "LangChain RAG Trading Search",
